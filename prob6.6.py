@@ -46,23 +46,29 @@ plt.subplot(311)
 labels = [r'$X_4$', r'$X_{12}$', r'$X_{16}$', r'$X_{20}$']
 plt.legend(labels, loc=1)
 plt.title(r'$\langle\alpha 12 \rangle$ = 100%')
+plt.xlabel("Time [yr]")
+plt.ylabel("Rel Abundance")
 
 plt.subplot(312)
 [plt.plot(res_plus_30.t, y, linestyle=ls) for (y, ls) in zip(res.y, linestyles)]
 labels = [r'$X_4$', r'$X_{12}$', r'$X_{16}$', r'$X_{20}$']
 plt.legend(labels, loc=1)
 plt.title(r'$\langle\alpha 12 \rangle$ = 130%')
+plt.xlabel("Time [yr]")
+plt.ylabel("Rel Abundance")
 
 plt.subplot(313)
 [plt.plot(res_minus_30.t, y, linestyle=ls) for (y, ls) in zip(res.y, linestyles)]
 labels = [r'$X_4$', r'$X_{12}$', r'$X_{16}$', r'$X_{20}$']
 plt.legend(labels, loc=1)
 plt.title(r'$\langle\alpha 12 \rangle$ = 70%')
+plt.xlabel("Time [yr]")
+plt.ylabel("Rel Abundance")
 
 
 
 
 
 plt.suptitle(r'Abundances from $3\alpha$', fontsize=14)
-plt.subplots_adjust(left=0.05, bottom=0.05,right=0.99,top=0.95,wspace=0.14,hspace=0.14)
+plt.subplots_adjust(left=0.05, bottom=0.05,right=0.99,top=0.95,wspace=0.14,hspace=0.21)
 plt.show()
