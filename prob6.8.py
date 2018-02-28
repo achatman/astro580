@@ -2,12 +2,14 @@ from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 import numpy as np
 
+rho = 2e5
+mu_e = 2#9.11e-27
+
+
 def temp(t, y):
   T = y[0]
-  T9 = T * 10e-9
-  rho = 2e5
+  T9 = T / 1e9
   Y = 1
-  mu_e = 2#9.11e-27
   #me = 2.74e-3
   B = 9.739e5
   x = (rho / (mu_e * B))**.33
@@ -20,15 +22,20 @@ def temp(t, y):
 
   return dTdt * 86400
 
-end_time = 1e11
-low_times = np.linspace(0, 20, 10000, endpoint=False)
-times = low_times#np.append(low_times, np.linspace(20, end_time, 10000))
+end_time = 30
+times = np.linspace(0, end_time, 10000)
 res = solve_ivp(temp, (0, end_time), (1.5e8,), t_eval = times)
+degen = (rho / mu_e / 6e-9)**(2/3)
+mask = res.y[0] < degen
 plt.style.use('seaborn')
 plt.figure(figsize=(10,16))
-plt.plot(res.t, res.y[0])
+plt.plot(res.t[mask], res.y[0][mask] / 1e9)
 
-plt.show()
+plt.xlabel('Time [days]')
+plt.ylabel(r'$T_9$ [$10^9$K]')
+plt.suptitle('Helium Flash in RGB Tip Star')
+
+plt.savefig('prob6.8.pdf', format='pdf')
 
 
 
