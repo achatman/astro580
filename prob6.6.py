@@ -34,15 +34,16 @@ def abundances(t, y, alpha_12 = 1):
   return RHS_yr
 
 end_time = 1e7
-times = np.linspace(0, end_time, 5000)
+times = np.linspace(1, end_time, 10000) #More than necessary cause I can.
 res = solve_ivp(abundances, (0, end_time), (1,0,0,0), t_eval = times)
 res_plus_30 = solve_ivp(abundances_plus_30, (0, end_time), (1,0,0,0), t_eval = times)
 res_minus_30 = solve_ivp(abundances_minus_30, (0, end_time), (1,0,0,0), t_eval = times)
 
 plt.style.use('seaborn')
 linestyles = ['-', '--', '-.', ':']
+plt.figure(figsize=(10,16))
 plt.subplot(311)
-[plt.plot(res.t, y, linestyle=ls) for (y, ls) in zip(res.y, linestyles)]
+[plt.semilogx(res.t, y, linestyle=ls) for (y, ls) in zip(res.y, linestyles)]
 labels = [r'$X_4$', r'$X_{12}$', r'$X_{16}$', r'$X_{20}$']
 plt.legend(labels, loc=1)
 plt.title(r'$\langle\alpha 12 \rangle$ = 100%')
@@ -50,7 +51,7 @@ plt.xlabel("Time [yr]")
 plt.ylabel("Rel Abundance")
 
 plt.subplot(312)
-[plt.plot(res_plus_30.t, y, linestyle=ls) for (y, ls) in zip(res.y, linestyles)]
+[plt.semilogx(res_plus_30.t, y, linestyle=ls) for (y, ls) in zip(res.y, linestyles)]
 labels = [r'$X_4$', r'$X_{12}$', r'$X_{16}$', r'$X_{20}$']
 plt.legend(labels, loc=1)
 plt.title(r'$\langle\alpha 12 \rangle$ = 130%')
@@ -58,7 +59,7 @@ plt.xlabel("Time [yr]")
 plt.ylabel("Rel Abundance")
 
 plt.subplot(313)
-[plt.plot(res_minus_30.t, y, linestyle=ls) for (y, ls) in zip(res.y, linestyles)]
+[plt.semilogx(res_minus_30.t, y, linestyle=ls) for (y, ls) in zip(res.y, linestyles)]
 labels = [r'$X_4$', r'$X_{12}$', r'$X_{16}$', r'$X_{20}$']
 plt.legend(labels, loc=1)
 plt.title(r'$\langle\alpha 12 \rangle$ = 70%')
@@ -70,5 +71,5 @@ plt.ylabel("Rel Abundance")
 
 
 plt.suptitle(r'Abundances from $3\alpha$', fontsize=14)
-plt.subplots_adjust(left=0.05, bottom=0.05,right=0.99,top=0.95,wspace=0.14,hspace=0.21)
-plt.show()
+plt.subplots_adjust(left=0.1, bottom=0.1,right=0.9,top=0.90,wspace=0.14,hspace=0.5)
+plt.savefig('prob6.6.pdf', format='pdf')
