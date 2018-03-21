@@ -1,5 +1,6 @@
 output = '  M (M_solar),  R (R_solar),Rho_c (g/cm3),<Rho> (g/cm3), Rho_c/<Rho> \n'
 with open('prob7.2.csv', mode='r') as f:
+  f.readline()
   for line in f:
     M,R,rhoc = line.strip().split(',')
     Mx = float(M) * 1.989e33
